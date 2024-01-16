@@ -21,15 +21,16 @@ const DepartmentList: React.FC<DepartmentProps> = ({ data }) => {
   const handleSelect = (department: string) => {
     const isDepartmentSelected = selected.includes(department);
     let updatedSelected: string[] = [];
-
+  
     if (isDepartmentSelected) {
-      updatedSelected = selected.filter((dep) => ![department, ...data.find((dep) => dep.department === department)?.sub_departments ?? []].includes(dep));
+      updatedSelected = selected.filter((subDep) => ![department, ...(data.find((dep) => dep.department === department)?.sub_departments ?? [])].includes(subDep));
     } else {
       updatedSelected = [...selected, department, ...(data.find((dep) => dep.department === department)?.sub_departments ?? [])];
     }
-
+  
     setSelected(updatedSelected);
   };
+  
 
   const handleSubSelect = (subDepartment: string, department: string) => {
     let updatedSelected: string[] = selected.includes(subDepartment)
